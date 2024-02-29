@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Item } from 'src/app/interfaces/iItem';
+import { ListaDeCompraService } from 'src/app/service/lista-de-compra.service';
 
 @Component({
   selector: 'app-item',
@@ -16,7 +17,7 @@ export class ItemComponent implements OnInit, OnChanges, OnDestroy {
   faPen = faPen;
   faTrash = faTrash
 
-  constructor() { }
+  constructor(private listaService: ListaDeCompraService) { }
 
   ngOnInit(): void { }
 
@@ -40,6 +41,9 @@ export class ItemComponent implements OnInit, OnChanges, OnDestroy {
     }else{
       this.item.comprado = true;
     }
+    this.listaService.mudarStatus(this.item).subscribe((item) => {
+      this.item = item;
+    })
   }
 
 }

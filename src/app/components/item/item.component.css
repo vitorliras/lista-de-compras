@@ -33,12 +33,15 @@ small {
   justify-self: center;
   align-self: center;
   grid-area: delete-icon;
+  color: #4574E3;
 }
 
 .edit-icon {
   justify-self: center;
   align-self: center;
   grid-area: edit-icon;
+  color: #4574E3;
+
 }
 
 .date {

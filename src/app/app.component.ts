@@ -1,6 +1,7 @@
 import { Component, DoCheck, OnInit } from '@angular/core';
 import { Item } from './interfaces/iItem';
 import { ListaDeCompraService } from './service/lista-de-compra.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +13,15 @@ export class AppComponent  implements OnInit, DoCheck{
   listaDeCompras!: Array<Item>;
   itemParaSerEditado!: Item;
 
-  constructor(private listaService: ListaDeCompraService) { }
+  constructor(private listaService: ListaDeCompraService, private router: Router) { }
   ngDoCheck(): void {
-    this.listaService.atualizarLocalStorage();
+    // this.listaService.atualizarLocalStorage();
   }
 
   ngOnInit(): void {
-    this.listaDeCompras = this.listaService.getListaDeCompra();
-    console.log(this.listaDeCompras)
+    this.listaService.getListaDeCompra().subscribe((lista) => {
+      this.listaDeCompras = lista
+    })
   }
 
   editarItem(item: Item){
@@ -29,10 +31,19 @@ export class AppComponent  implements OnInit, DoCheck{
   deletarItem(id: number){
     const index = this.listaDeCompras.findIndex((item)=>item.id === id);
     this.listaDeCompras.splice(index, 1);
+    if(id) {
+      this.listaService.excluir(id).subscribe(() => {
+        // this.router.navigate(['/listarPensamento'])
+        location.reload()
+      })
+    }
   }
 
   limparLista(){
-    this.listaService.limparLocalStorage();
+    this.listaService.limparLista().subscribe(() => {
+      // this.router.navigate(['/listarPensamento'])
+      location.reload()
+    })
     this.listaDeCompras = [];
   }
 

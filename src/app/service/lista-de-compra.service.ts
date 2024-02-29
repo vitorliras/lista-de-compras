@@ -1,35 +1,34 @@
-import { Item } from 'src/app/interfaces/iItem';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, forkJoin, mergeMap } from 'rxjs';
+import { Item } from '../interfaces/iItem';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListaDeCompraService {
 
-  private listaDeCompra: Item[];
-  constructor() {
-    this.listaDeCompra = JSON.parse(localStorage.getItem('itens')|| '[]');
+  private readonly API = 'http://localhost:3000/itens';
+
+  // private listaDeCompra: Item[];
+
+    constructor(private http: HttpClient) {
+    // this.listaDeCompra = JSON.parse(localStorage.getItem('itens')|| '[]');
   }
 
   getListaDeCompra(){
-    return this.listaDeCompra;
+    return this.http.get<Item[]>(this.API)
+
   }
 
-  criarItem(nomeDoItem: string){
-    const id = this.listaDeCompra.length + 1
-    const item : Item = {
-      id: id,
-      nome: nomeDoItem,
-      data: new Date().toLocaleString('pt-BR'),
-      comprado: false
-    }
-    return item
+  criarItem(item: Item): Observable<Item>{
+    const itemNovo = this.http.post<Item>(this.API, item)
+    return itemNovo;
   }
 
-  adicionarItemNaLista(nomeDoItem: string){
-    const item = this.criarItem(nomeDoItem)
-    this.listaDeCompra.push(item);
-    this.atualizarLocalStorage();
+  excluir(id: number | string | undefined): Observable<Item> {
+    const url = `${this.API}/${id}`;
+    return this.http.delete<Item>(url);
   }
 
   editarItemDaLista(itemAntigo: Item, nomeEditadoDoItem: string){
@@ -40,23 +39,42 @@ export class ListaDeCompraService {
       comprado: itemAntigo.comprado
     }
     const id = itemAntigo.id;
-    this.listaDeCompra.splice(Number(id)-1, 1, itemEditado);
-    this.atualizarLocalStorage();
+    const url = `${this.API}/${itemEditado.id}`;
+    return this.http.put<Item>(url, itemEditado);
   }
 
-  limparLocalStorage(){
-    localStorage.removeItem('itens');
-    console.log("Limpando localStorage...");
-    localStorage.clear();
-    console.log("localStorage limpo.");
-    Object.keys(localStorage).forEach(key => {
-      localStorage.removeItem(key);
-    });
-
+  mudarStatus(itemStatusMudado: Item){
+    const itemEditado : Item = {
+      id: itemStatusMudado.id,
+      nome: itemStatusMudado.nome,
+      data: itemStatusMudado.data,
+      comprado: itemStatusMudado.comprado
+    }
+    const url = `${this.API}/${itemEditado.id}`;
+    return this.http.put<Item>(url, itemEditado);
   }
 
-  atualizarLocalStorage(){
-    localStorage.setItem('itens', JSON.stringify(this.listaDeCompra));
+  limparLista(): Observable<any> {
+    // Recupera a lista de itens
+    return this.getListaDeCompra()
+      .pipe(
+        // Use operador mergeMap para excluir cada item individualmente
+        mergeMap(items => {
+          // Cria uma matriz de observáveis para solicitações de exclusão
+          const deleteRequests: Observable<Item>[] = [];
+          // Crie uma solicitação de exclusão para cada item na lista
+          items.forEach(item => {
+            const deleteRequest = this.excluir(item.id);
+            deleteRequests.push(deleteRequest);
+          });
+          // Combine todas as solicitações de exclusão usando forkJoin
+          return forkJoin(deleteRequests);
+        })
+      );
   }
+
+  // atualizarLocalStorage(){
+  //   localStorage.setItem('itens', JSON.stringify(this.listaDeCompra));
+  // }
 
 }
