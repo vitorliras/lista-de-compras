@@ -1,0 +1,64 @@
+<!-- <section *ngIf="statusModal" class="container">
+  <form class="add-item">
+    <div class="form">
+      <input
+      type="text"
+      name="item"
+      placeholder="Digite o item que deseja adicionar"
+      [(ngModel)]="valorItem"
+      >
+      <button type="submit">Salvar</button>
+      <button (click)="fecharModal()" class="botao-fechar" >
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+  </form>
+
+</section> -->
+
+
+<section *ngIf="statusModal" class="container ">
+  <div class="card">
+    <div class="fechar-modal">
+      <button (click)="fecharModal()" class="botao-fechar" >
+        <span class="material-symbols-outlined">X</span>
+      </button>
+
+    </div>
+    <div class="info-card">
+      <form class="add-item"  (ngSubmit)="editando ? editarItem() : adicionarItem()">
+        <input
+        type="text"
+        name="item"
+        placeholder="Digite o item que deseja adicionar"
+        [(ngModel)]="valorItem"
+        class="input-text"
+        >
+        <!-- <input
+        type="text"
+        name="item"
+        placeholder="Digite o item que deseja adicionar"
+        [(ngModel)]="valorItem"
+        class="input-text"
+        >
+        <input
+        type="text"
+        name="item"
+        placeholder="Digite o item que deseja adicionar"
+        [(ngModel)]="valorItem"
+        class="input-text"
+        > -->
+        <!-- <div class="form">
+
+        </div> -->
+        <div class="btn-modal-salvar">
+
+          <button class="button" type="submit">Salvar</button>
+        </div>
+      </form>
+    </div>
+
+
+
+  </div>
+</section>

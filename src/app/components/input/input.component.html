@@ -1,12 +1,10 @@
-<form class="add-item" (ngSubmit)="editando ? editarItem() : adicionarItem()">
+<form class="add-item">
   <div class="form">
-      <input
-      type="text"
-      name="item"
-      placeholder="Digite o item que deseja adicionar"
-      [(ngModel)]="valorItem"
-      >
-      <button type="submit">{{textoBtn}}</button>
+
+      <button (click)="onModalChange(true)" type="submit">Adicionar Item</button>
 
   </div>
 </form>
+<div *ngIf="modalAberto">
+  <app-modal (mudouModal)="onModalChange($event)"></app-modal>
+</div>
