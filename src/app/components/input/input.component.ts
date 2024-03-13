@@ -12,6 +12,7 @@ export class InputComponent  {
 
   modalAberto!: boolean;
 
+
   onModalChange(evento: boolean) {
     this.modalAberto = evento;
   }

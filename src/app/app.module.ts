@@ -9,20 +9,33 @@ import { InputComponent } from './components/input/input.component';
 import { ItemComponent } from './components/item/item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from './components/modal/modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MensagemComponent } from './components/mensagem/mensagem.component';
+import { ModalExcluirComponent } from './components/modal-excluir/modal-excluir.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     InputComponent,
     ItemComponent,
-    ModalComponent
+    ModalComponent,
+    MensagemComponent,
+    ModalExcluirComponent
   ],
   imports: [
     BrowserModule,
     FontAwesomeModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

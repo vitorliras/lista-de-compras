@@ -2,21 +2,80 @@
   "itens": [
     {
       "id": 1,
-      "nome": "fsdggsfdgsdfgsdg",
-      "data": "29/02/2024, 08:57:22",
+      "nome": "leite em pó",
+      "quantidade": 35,
+      "tipo": "Matinais",
+      "marca": "itambé",
+      "data": "12/03/2024, 17:52:16",
       "comprado": false
     },
     {
       "id": 2,
-      "nome": "gsgvfsw",
-      "data": "29/02/2024, 08:57:24",
+      "nome": "refrigerante",
+      "quantidade": 2,
+      "tipo": "Bebidas",
+      "marca": "coca zero",
+      "data": "12/03/2024, 17:56:15",
       "comprado": false
     },
     {
-      "nome": "teste",
-      "data": "12/03/2024, 17:14:11",
-      "comprado": false,
-      "id": 3
+      "id": 3,
+      "nome": "detergente",
+      "quantidade": 6,
+      "tipo": "limpeza",
+      "marca": "veja",
+      "data": "13/03/2024, 09:35:31",
+      "comprado": false
+    },
+    {
+      "id": 4,
+      "nome": "Biscoito",
+      "quantidade": 25,
+      "tipo": "Lanche",
+      "marca": "treloso",
+      "data": "13/03/2024, 12:14:10",
+      "comprado": false
+    }
+  ],
+  "tipos": [
+    {
+      "tipo": "Padaria"
+    },
+    {
+      "tipo": "Carnes"
+    },
+    {
+      "tipo": "Mercearia"
+    },
+    {
+      "tipo": "Não Perecivél"
+    },
+    {
+      "tipo": "Lanche"
+    },
+    {
+      "tipo": "Matinais"
+    },
+    {
+      "tipo": "Frios e Laticínios"
+    },
+    {
+      "tipo": "Bebidas"
+    },
+    {
+      "tipo": "Utilidades Domésticas"
+    },
+    {
+      "tipo": "Limpeza"
+    },
+    {
+      "tipo": "Higiene"
+    },
+    {
+      "tipo": "Hortifruti"
+    },
+    {
+      "tipo": "Pet Shop"
     }
   ]
 }

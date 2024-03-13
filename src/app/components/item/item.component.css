@@ -1,13 +1,15 @@
-:host {
+.item-card {
   display: grid;
-  grid-template-columns: .5fr 2.5fr .5fr .5fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 0px 0px;
+  grid-template-columns: .1fr 1.5fr .5fr .5fr;
+  /* grid-template-rows: 1fr 1fr; */
+  /* gap: 0px 0px; */
   grid-auto-flow: row;
   grid-template-areas:
-    "checkbox description delete-icon edit-icon"
-    "date date date date";
-  padding: .5rem 0;
+    "checkbox quantidade description delete-icon edit-icon"
+    "marca marca date date date"
+
+    ;
+  padding: .1rem 0;
 }
 
 small {
@@ -16,6 +18,7 @@ small {
 
 .checkbox {
   /* justify-self: start; */
+  margin: 10px;
   grid-area: checkbox;
 }
 
@@ -45,11 +48,20 @@ small {
 }
 
 .date {
-  justify-self: start;
+  justify-self: center; /* Alinha no canto esquerdo */
+  align-self: start;   /* Alinha no topo */
   grid-area: date;
-  margin-top: .5rem;
+  width: 100px;
   margin-left: .5rem;
 }
+
+.marca {
+  justify-self: start;   /* Alinha no canto direito */
+  align-self: start;   /* Alinha no topo */
+  grid-area: marca;    /* Note que adicionei uma nova área 'marca' */
+  margin-left: .5rem; /* Margem à direita para separar do canto direito */
+}
+
 .line-through {
   text-decoration: line-through;
 }

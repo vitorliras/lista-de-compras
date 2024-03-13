@@ -1,0 +1,10 @@
+.erro__texto {
+  font-size: 8px;
+  line-height: 18px;
+  color: red;
+}
+
+.ng-invalid.ng-touched:not(form){
+  /* border-color: red; */
+  color: red;
+}

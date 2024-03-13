@@ -1,14 +1,29 @@
-<input
-  class="checkbox"
-  type="checkbox"
-  name="comprado"
-  id="comprado"
-  [checked]="item.comprado"
-  (change)="checarItem();"
-  >
-<p class="description">{{item.nome}}</p>
-<div class="d-contents" *ngIf="!item.comprado">
-  <fa-icon class="delete-icon" (click)="deletarItem()" [icon]="faTrash" ></fa-icon>
-  <fa-icon class="edit-icon" (click)="editarItem()"  [icon]="faPen" ></fa-icon>
+<div class="item-card">
+
+  <input
+    class="checkbox"
+    type="checkbox"
+    name="comprado"
+    id="comprado"
+    [checked]="item.comprado"
+    (change)="checarItem();"
+    >
+    <div style="display: flex;  margin-top: 12px;">
+      <span class="quantidade" style="font-size: 14px; margin-right: 8px; ">{{item.quantidade}}x</span>
+      <p class="description"><b>{{item.nome}}</b> </p>
+    </div>
+  <div class="d-contents" *ngIf="!item.comprado">
+    <fa-icon class="delete-icon" (click)="deletarItem()" [icon]="faTrash" ></fa-icon>
+    <fa-icon class="edit-icon" (click)="onModalChange(true)"  [icon]="faPen" ></fa-icon>
+  </div>
+
+  <small class="marca">marca: <b>{{item.marca}}</b> | Tipo: <b>{{item.tipo}}</b></small>
+  <small class="date">{{item.data}}</small>
+
+
+
+
+  <div *ngIf="modalAberto">
+    <app-modal [itemQueVaiSerEditado]="item" (mudouModal)="onModalChange($event)"></app-modal>
+  </div>
 </div>
-<small class="date">{{item.data}}</small>

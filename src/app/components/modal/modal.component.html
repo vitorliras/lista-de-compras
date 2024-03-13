@@ -19,41 +19,76 @@
 
 <section *ngIf="statusModal" class="container ">
   <div class="card">
-    <div class="fechar-modal">
-      <button (click)="fecharModal()" class="botao-fechar" >
+    <div class="fechar-modal" style="display: flex; justify-content: space-between;">
+        <h3 class="title-listh3">Produto</h3>
+      <button (click)="fecharModal()" class="botao-fechar">
         <span class="material-symbols-outlined">X</span>
       </button>
-
     </div>
     <div class="info-card">
-      <form class="add-item"  (ngSubmit)="editando ? editarItem() : adicionarItem()">
-        <input
-        type="text"
-        name="item"
-        placeholder="Digite o item que deseja adicionar"
-        [(ngModel)]="valorItem"
-        class="input-text"
-        >
-        <!-- <input
-        type="text"
-        name="item"
-        placeholder="Digite o item que deseja adicionar"
-        [(ngModel)]="valorItem"
-        class="input-text"
-        >
-        <input
-        type="text"
-        name="item"
-        placeholder="Digite o item que deseja adicionar"
-        [(ngModel)]="valorItem"
-        class="input-text"
-        > -->
+      <form class="add-item" id="formulario" #f="ngForm" (ngSubmit)="editando ? editarItem() : adicionarItem()">
+        <div class="input-container">
+          <input ngModel required type="text" name="nome" #nome="ngModel" [(ngModel)]="valorItem.nome" class="input-text">
+          <label for="nome">Nome</label>
+
+          <div *ngIf="(nome?.invalid) ">
+            <app-mensagem
+              *ngIf="nome?.errors?.['required']"
+              mensagem="Campo Obrigatório"
+            ></app-mensagem>
+          </div>
+        </div>
+
+        <div class="input-container">
+          <input ngModel required #marca="ngModel" type="text" name="marca" [(ngModel)]="valorItem.marca" class="input-text">
+          <label for="marca">Marca</label>
+          <div *ngIf="(marca?.invalid) ">
+            <app-mensagem
+              *ngIf="marca?.errors?.['required']"
+              mensagem="Campo Obrigatório"
+            ></app-mensagem>
+          </div>
+
+        </div>
+
+        <div class="input-container" style="display: flex;">
+          <div class="campos-div" style="width: 60% !important;">
+            <select ngModel required #tipo="ngModel" name="tipo" [(ngModel)]="valorItem.tipo" class="input-text" >
+              <option value="" disabled selected>Selecione</option>
+              <option *ngFor="let tipo of tipos" [value]="tipo">{{ tipo }}</option>
+            </select>
+            <label for="tipo">Tipo</label>
+
+            <div *ngIf="(tipo?.invalid) ">
+              <app-mensagem
+                *ngIf="tipo?.errors?.['required']"
+                mensagem="Campo Obrigatório"
+              ></app-mensagem>
+            </div>
+          </div>
+
+          <div style="width: 40% !important; margin-left: 10px;">
+            <input ngModel required #quantidade="ngModel" type="number" name="quantidade" [(ngModel)]="valorItem.quantidade" class="input-text" id="quantidadeInput" >
+            <label for="quantidadeInput">Quantidade</label>
+
+            <div *ngIf="(quantidade?.invalid ) ">
+              <app-mensagem
+                *ngIf="quantidade?.errors?.['required']"
+                mensagem="Campo Obrigatório"
+              ></app-mensagem>
+            </div>
+
+          </div>
+
+        </div>
+
+
         <!-- <div class="form">
 
         </div> -->
         <div class="btn-modal-salvar">
 
-          <button class="button" type="submit">Salvar</button>
+          <button [disabled]="!f.valid" class="button" type="submit">Salvar</button>
         </div>
       </form>
     </div>

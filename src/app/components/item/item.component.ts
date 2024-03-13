@@ -13,6 +13,7 @@ export class ItemComponent implements OnInit, OnChanges, OnDestroy {
   @Input() item!: Item;
   @Output() emitindoItemParaEditar = new EventEmitter();
   @Output() emitindoIdParaDeletar = new EventEmitter();
+  modalAberto!: boolean;
 
   faPen = faPen;
   faTrash = faTrash
@@ -44,6 +45,10 @@ export class ItemComponent implements OnInit, OnChanges, OnDestroy {
     this.listaService.mudarStatus(this.item).subscribe((item) => {
       this.item = item;
     })
+  }
+
+  onModalChange(evento: boolean) {
+    this.modalAberto = evento;
   }
 
 }

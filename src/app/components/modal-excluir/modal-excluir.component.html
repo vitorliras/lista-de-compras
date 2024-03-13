@@ -1,0 +1,10 @@
+
+
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <p>Você tem certeza que quer excluir este item?</p>
+    <button (click)="confirmDelete()">Sim</button>
+    <button (click)="closeModal()">Cancelar</button>
+  </div>
+</div>

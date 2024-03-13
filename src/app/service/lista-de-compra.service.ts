@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, forkJoin, mergeMap } from 'rxjs';
+import { Observable, forkJoin, map, mergeMap } from 'rxjs';
 import { Item } from '../interfaces/iItem';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Item } from '../interfaces/iItem';
 export class ListaDeCompraService {
 
   private readonly API = 'http://localhost:3000/itens';
+  private readonly API_TIPO = 'http://localhost:3000/tipos';
 
   // private listaDeCompra: Item[];
 
@@ -18,10 +19,14 @@ export class ListaDeCompraService {
 
   getListaDeCompra(){
     return this.http.get<Item[]>(this.API)
+  }
 
+  getListaTipo() {
+    return this.http.get<String[]>(this.API_TIPO)
   }
 
   criarItem(item: Item): Observable<Item>{
+    debugger;
     const itemNovo = this.http.post<Item>(this.API, item)
     return itemNovo;
   }
@@ -31,10 +36,14 @@ export class ListaDeCompraService {
     return this.http.delete<Item>(url);
   }
 
-  editarItemDaLista(itemAntigo: Item, nomeEditadoDoItem: string){
+  editarItemDaLista(itemAntigo: Item, itemNovo: Item){
+    debugger;
     const itemEditado : Item = {
       id: itemAntigo.id,
-      nome: nomeEditadoDoItem,
+      nome:itemNovo.nome,
+      quantidade: itemNovo.quantidade,
+      tipo:itemNovo.tipo,
+      marca: itemNovo.marca,
       data: itemAntigo.data,
       comprado: itemAntigo.comprado
     }
@@ -47,6 +56,9 @@ export class ListaDeCompraService {
     const itemEditado : Item = {
       id: itemStatusMudado.id,
       nome: itemStatusMudado.nome,
+      quantidade: itemStatusMudado.quantidade,
+      tipo:itemStatusMudado.tipo,
+      marca: itemStatusMudado.marca,
       data: itemStatusMudado.data,
       comprado: itemStatusMudado.comprado
     }
@@ -76,5 +88,6 @@ export class ListaDeCompraService {
   // atualizarLocalStorage(){
   //   localStorage.setItem('itens', JSON.stringify(this.listaDeCompra));
   // }
+
 
 }
